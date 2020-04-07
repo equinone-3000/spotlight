@@ -1,0 +1,386 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Notificar",
+    "version": "1.0",
+    "contact": {
+      "name": "CRISTIAN PEÑALOZA",
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/Notificar/documentos": {
+      "post": {
+        "summary": "Notificar Carga de Documentos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Notificacion de Documento Realizada"
+          }
+        },
+        "operationId": "post-Notificar-documentos",
+        "description": "Servicio que recibe desde el administrador documental la notificacion de carga y procesamiento de un documento",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "origen": {
+                    "type": "string",
+                    "description": "Origen desde donde llego el documento"
+                  },
+                  "rutcli": {
+                    "type": "string",
+                    "description": "Rut del cliente asociado al documento"
+                  },
+                  "tipDoc": {
+                    "type": "string",
+                    "description": "tipo de documento (LEGAL / FACTORING / CONFIRMING )"
+                  },
+                  "numope": {
+                    "type": "number",
+                    "description": "numero de la operacion asociada"
+                  },
+                  "idTip": {
+                    "type": "number",
+                    "description": "ID del tipo de documento"
+                  },
+                  "iddoc": {
+                    "type": "string",
+                    "description": "ID generado por el Gestor Documental"
+                  },
+                  "estdoc": {
+                    "type": "string",
+                    "description": "Estado del Documento"
+                  }
+                },
+                "required": [
+                  "origen",
+                  "rutcli",
+                  "tipDoc",
+                  "numope",
+                  "idTip",
+                  "iddoc",
+                  "estdoc"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "origen": "OCTA",
+                    "rutcli": "19",
+                    "tipDoc": "LEGAL",
+                    "numope": null,
+                    "idTip": 1,
+                    "idDoc": "xc832900dk39ds03",
+                    "estdoc": "ACEPTADO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          }
+        ]
+      }
+    },
+    "/Notificar/{operacion}/abono": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "operacion",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Notificar Abono",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Notifcacion Recibida"
+          }
+        },
+        "operationId": "get-Notificar-operacion-abono",
+        "description": "Servicio que Recibe notificacion de Abono",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "required": true,
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "operacion",
+            "description": "numero de la operacion",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "monto": {
+                    "type": "number",
+                    "description": "Monto Abonado"
+                  },
+                  "fechaHora": {
+                    "type": "string",
+                    "description": "Fecha y Hora del Abono"
+                  },
+                  "cuenta": {
+                    "type": "object",
+                    "required": [
+                      "numero",
+                      "tipo",
+                      "banco"
+                    ],
+                    "description": "Cuenta donde se realiza el abono",
+                    "properties": {
+                      "numero": {
+                        "type": "string",
+                        "description": "Numero de Cuenta"
+                      },
+                      "tipo": {
+                        "type": "string",
+                        "description": "Tipo de la Cuenta"
+                      },
+                      "banco": {
+                        "type": "string",
+                        "description": "Banco asociado a la cuenta"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "monto",
+                  "fechaHora",
+                  "cuenta"
+                ]
+              },
+              "examples": {
+                "ejemplo": {
+                  "value": {
+                    "Monto": 10000,
+                    "fechaHora": "31/03/2020 18:30",
+                    "cuenta": {
+                      "Numero": "00-125465-5",
+                      "tipo": "CUENTA CORRIENTE",
+                      "Banco": "SANTANDER"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de Datos Recibida"
+        }
+      }
+    },
+    "/Notificar/{operacion}/cambios/{respuesta}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "operacion",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "respuesta",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Notifica Respuesta Cambio",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Notifcacion Recibida"
+          }
+        },
+        "operationId": "get-Notificar-operacion-cambios",
+        "description": "Notificacion si acepta o rechaza el cambio a una operacion",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "operacion",
+            "required": true,
+            "description": "numero de operacion"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "acepta",
+                "rechaza"
+              ]
+            },
+            "in": "query",
+            "name": "respuesta",
+            "required": true,
+            "description": "respuesta al cambio"
+          }
+        ],
+        "requestBody": {}
+      }
+    },
+    "/Notificar/{operacion}/Aviso/{tipo}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "operacion",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tipo",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Aviso de Notificacion",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK aviso enviado"
+          }
+        },
+        "operationId": "get-Notificar-operacion-Aviso",
+        "description": "Servicio responsable de enviar avisos a los canales",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "name": "Content-Type",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "operacion",
+            "description": "Numero de la Operacion",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cambio"
+              ]
+            },
+            "in": "query",
+            "name": "tipo",
+            "description": "Tipo de Aviso",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mensaje": {
+                    "type": "string",
+                    "description": "mensaje a enviar"
+                  }
+                },
+                "required": [
+                  "mensaje"
+                ]
+              },
+              "examples": {
+                "ejemplo": {
+                  "value": {
+                    "mensaje": "Se informa cambio en la operacion"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

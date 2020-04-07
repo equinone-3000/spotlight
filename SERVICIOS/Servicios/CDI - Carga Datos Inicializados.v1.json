@@ -1,0 +1,638 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Carga Datos Inicializados",
+    "version": "1.0",
+    "description": "Carga informacion de Datos de Cliente, documentos y cesiones desde la nube de  Azure hacia los distintos servicios de PFSA",
+    "contact": {
+      "name": "CRISTIAN PEÑALOZA",
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/CDI/ecliente": {
+      "post": {
+        "summary": "CDI Clientes",
+        "operationId": "post-CDI-ecliente",
+        "responses": {
+          "200": {
+            "description": "Informacion Cliente procesada con exito"
+          }
+        },
+        "description": "Servicio que gestiona la informacion rescata desde la cola CLIENTE para distribucion en los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "codigoError": 0,
+                    "descripcionError": "OK",
+                    "sysdate": null,
+                    "origen": "OCTA",
+                    "contribuyente": {
+                      "codigoError": 0,
+                      "descripcionError": "Contribuyente existe",
+                      "sysdate": null,
+                      "rut": "99501480",
+                      "dv": "7",
+                      "nombres": null,
+                      "apellidoPaterno": null,
+                      "apellidoMaterno": null,
+                      "razonSocial": "PENTA FINANCIERO S.A",
+                      "tipoContribuyenteCodigo": "2",
+                      "tipoContribuyenteDescripcion": "PERSONA JURIDICA COMERCIAL",
+                      "subtipoContribuyenteCodigo": "213",
+                      "subtipoContribuyenteDescrip": "SOCIEDADES ANONIMAS CERRADAS",
+                      "paisCodigo": null,
+                      "sexo": null,
+                      "numeroPasaporte": null,
+                      "fechaConstitucion": "2002-09-24 00:00:00.0",
+                      "fechaNacimiento": null,
+                      "fechaDefuncion": null,
+                      "eMail": "MFLORES@PENTAFINANCIERO.CL",
+                      "fechaCreaRegistroCntr": "2002-10-17 00:00:00.0",
+                      "fechaModiRegistroCntr": "2012-10-16 20:15:45.0",
+                      "telefonoMovil": "76959223",
+                      "fechaTerminoGiro": null,
+                      "autorizadoDeclararDia20": "S",
+                      "fechaInicioActividades": "2002-10-16 00:00:00.0",
+                      "unidadOperativaCodigo": "15000",
+                      "unidadOperativaDescripcion": "SANTIAGO ORIENTE",
+                      "unidadOperativaDireccion": "GENERAL DEL CANTO 281, PROVIDENCIA",
+                      "unidadOperativaGcCodigo": null,
+                      "unidadOperativaGcDescripcion": null,
+                      "unidadOperativaGcDireccion": null,
+                      "capitalPorEnterar": "0",
+                      "capitalEnterado": "6037769",
+                      "fIndVerificacion": "2018-02-07 13:01:38.0",
+                      "fechaCreaRegistroNeg": "2002-10-17 00:00:00.0",
+                      "fechaModiRegistroNeg": "2011-05-05 19:03:28.0",
+                      "segmentoCodigo": "SGGC",
+                      "segmentoDescripcion": "GRAN EMPRESA",
+                      "personaEmpresa": "EMPRESA",
+                      "glosaActividad": "FACTORING LEASING FINANC SERV DE COBRANZA DE CREDITO,ASESORIA ANALISIS",
+                      "tipoActuacion": "Cualquiera",
+                      "descripcionActuacion": null,
+                      "declaraTG": "No",
+                      "personaMiSii": "N"
+                    },
+                    "actEcos": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee actividades económicas",
+                        "sysdate": null,
+                        "codigo": "649100",
+                        "descripcion": "LEASING FINANCIERO",
+                        "categoriaTributaria": "1",
+                        "afectoIva": "S",
+                        "fechaInicio": "05-05-2011"
+                      }
+                    ],
+                    "direcciones": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee dirección",
+                        "sysdate": null,
+                        "codigo": "63316320",
+                        "comunaCodigo": "15108",
+                        "comunaDescripcion": "LAS CONDES",
+                        "regionCodigo": "13",
+                        "regionDescripcion": "REGION METROPOLITANA     ",
+                        "tipoDomicilioCodigo": "1",
+                        "tipoDomicilioDescripcion": "DOMICILIO",
+                        "manzana": "279",
+                        "predio": "109",
+                        "calle": "AL BOSQUE NORTE",
+                        "numero": "0440",
+                        "bloque": null,
+                        "departamento": "1201",
+                        "villaPoblacion": null,
+                        "ciudad": "STGO",
+                        "fax": null,
+                        "telefono": "27505700",
+                        "fuente": null,
+                        "tipoPropiedadCodigo": "2",
+                        "tipoPropiedadDescripcion": "ARRENDADO NOTARIAL",
+                        "rutPropietario": "96812960",
+                        "dvPropietario": "0",
+                        "canon": "7568",
+                        "areaTelefono": "2",
+                        "areaFax": null,
+                        "codigoPostal": null,
+                        "casilla": null,
+                        "correo": null,
+                        "mail": null,
+                        "fechaModiRegistro": "2017-01-27 13:17:00.0"
+                      }
+                    ],
+                    "representantes": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee representantes",
+                        "sysdate": null,
+                        "rut": "6069804",
+                        "dv": "K",
+                        "fechaInicio": "2007-10-26 00:00:00.0",
+                        "fechaTermino": "2013-08-14 00:00:00.0",
+                        "razonSocial": null,
+                        "nombres": "CARLOS ERNESTO",
+                        "apellidoPaterno": "MELIBOSKY",
+                        "apellidoMaterno": "GARCIA",
+                        "vigente": "N"
+                      }
+                    ],
+                    "socios": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente  posee socios",
+                        "sysdate": null,
+                        "index": 0,
+                        "rut": "76258327",
+                        "dv": "5",
+                        "fechaIncorporacion": "2016-06-29 00:00:00.0",
+                        "aportePorEnterar": "0",
+                        "fechaFinParticipacion": null,
+                        "sraGpk": null,
+                        "sraNdr": null,
+                        "aporteEnterado": "0",
+                        "participacionCapital": "99.99",
+                        "participacionUtilidades": "99.99",
+                        "fechaModificacion": null,
+                        "fechaPorEnterar": null,
+                        "porcentajeAtribucion": null,
+                        "razonSocial": "INVERSIONES BANPENTA II LIMITADA",
+                        "nombres": null,
+                        "apellidoPaterno": null,
+                        "apellidoMaterno": null,
+                        "vigente": "S"
+                      }
+                    ],
+                    "timbrajes": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee documentos",
+                        "sysdate": null,
+                        "codigo": "95",
+                        "descripcion": "BOLETAS DE PRESTACION DE SERVICIOS DE 3R",
+                        "numeroInicial": "1",
+                        "numeroFinal": "100",
+                        "fechaLegalizacion": "10-01-2003"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de cliente recibida"
+        }
+      }
+    },
+    "/CDI/ctributaria": {
+      "post": {
+        "summary": "CDI Carpeta Tributaria",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Carpeta Tributaria procesada con exito"
+          }
+        },
+        "operationId": "post-CDI-ctributaria",
+        "description": "Servicio que gestiona la informacion rescata desde la cola CARPETA para distribucion en los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "link": {
+                    "type": "string"
+                  },
+                  "origen": {
+                    "type": "string"
+                  },
+                  "rut": {
+                    "type": "string",
+                    "description": "Rut del Cliente"
+                  }
+                },
+                "required": [
+                  "link",
+                  "origen",
+                  "rut"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "link": "http:\\nombrecarpeta.pdf",
+                    "rut": "122436756",
+                    "origen": "OCTA"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de carpeta tributaria recibida"
+        }
+      }
+    },
+    "/CDI/cesiones": {
+      "post": {
+        "summary": "CDI Cesiones",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Cesiones procesadas con exito"
+          }
+        },
+        "operationId": "post-CDI-cesiones",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "company_id": "76696741-8",
+                    "origen": "OCTA",
+                    "data": [
+                      {
+                        "01092019-01102019": [
+                          {
+                            "VENDEDOR": "76696741-8",
+                            "ESTADO_CESION": "Cesion Vigente",
+                            "DEUDOR": "96623540-3",
+                            "MAIL_DEUDOR": null,
+                            "TIPO_DOC": "34",
+                            "NOMBRE_DOC": "Factura Exenta Electronica",
+                            "FOLIO_DOC": "45",
+                            "FCH_EMIS_DTE": "2019-09-04",
+                            "MNT_TOTAL": "896000",
+                            "CEDENTE": "76696741-8",
+                            "RZ_CEDENTE": "Narki Spa",
+                            "MAIL_CEDENTE": "jonas@narki.cl",
+                            "CESIONARIO": "76596744-9",
+                            "RZ_CESIONARIO": "CHITA SPA.",
+                            "MAIL_CESIONARIO": "contacto@chita.cl",
+                            "FCH_CESION": "2019-09-11 18:56",
+                            "MNT_CESION": "896000",
+                            "FCH_VENCIMIENTO": "2019-10-04"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de cesion de documentos recibida"
+        },
+        "description": "Servicio que gestiona la informacion rescata desde la cola CESIONES para distribucion en los distintos sistemas"
+      }
+    },
+    "/CDI/dtes": {
+      "post": {
+        "summary": "CDI Documentos Tributarios Electronicos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Documentos procesados con exito"
+          }
+        },
+        "operationId": "post-CDI-dtes",
+        "description": "Servicio que gestiona la informacion rescata desde la cola DTES para distribucion en los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "data": null,
+                    "origen": "OCTA",
+                    "dataReferencias": [],
+                    "dataReferenciados": [
+                      {
+                        "denvTrackid": 4255202882,
+                        "dhdrCodigo": 4112765712,
+                        "dhdrPcarga": 202001,
+                        "dhdrRutEmisor": 99501480,
+                        "dhdrDvEmisor": "7",
+                        "dtdcCodigo": 61,
+                        "dhdrFolio": 1590,
+                        "dtesEstado": "DOK",
+                        "dhdrRutRecep": 76592372,
+                        "dhdrDvRecep": "7",
+                        "dhdrFchEmis": "2019-12-30",
+                        "dhdrMntTotal": 595,
+                        "dtecIdRepos": 3967458560,
+                        "dtecMarcaRef": 8,
+                        "dhdrIva": 95,
+                        "dtecRutFirmante": 10986337,
+                        "dtecDvFirmante": "8",
+                        "dtecStrCheck": "NtewnRmkQ/ZFbcz0bMty1V0o8va3jERDuE5HeJT1uMGLViHo2Yau9z1sMKHmH1L187/2hMwjsczVhSCTwkOpDU4Q9qUAPhzd6ZPz8Of9xMNNdzfC87ZRersDHn+fiEmmxD98uSpY+fuzNezBokiuEbAprN1l6VK+655IRiABTCs=",
+                        "dtecFchrIniproc": "2020-01-02",
+                        "dtecTmstRecep": "2020-01-02 09:32:39",
+                        "dhdrRznSoc": "PENTA FINANCIERO SA",
+                        "dhdrRznSocRecep": "ALTAMIRA TRADING SPA"
+                      }
+                    ],
+                    "reparos": [],
+                    "metaData": {
+                      "conversationId": "J7UDMAKCSPGN7",
+                      "transactionId": "b93e113b-d394-46ff-8f5f-c427107c36e9",
+                      "namespace": "cl.sii.sdi.lob.diii.consdcv.data.api.interfaces.FacadeService/getDetalleDTE",
+                      "info": null,
+                      "errors": null,
+                      "page": null
+                    },
+                    "detalleDte": {
+                      "rutEmisor": 99501480,
+                      "dvEmisor": "7",
+                      "rznSocEmisor": "PENTA FINANCIERO SA",
+                      "codigoTipoDoc": null,
+                      "descTipoDoc": "Factura Electronica",
+                      "periodo": null,
+                      "rutReceptor": 76592372,
+                      "dvReceptor": "7",
+                      "rznSocRecep": "ALTAMIRA TRADING SPA",
+                      "folio": 68369,
+                      "fechaEmision": "18/12/2019",
+                      "fechaEmisionA": null,
+                      "fechaRecepcion": "18/12/2019",
+                      "totalReparos": null,
+                      "mntNeto": null,
+                      "mntExento": null,
+                      "mntIva": 95,
+                      "mntTotal": 595,
+                      "tasaImptoIVA": null,
+                      "dehDescripcion": null,
+                      "totOtrosImp": null,
+                      "dhdrCodigo": 4090097821,
+                      "rutFirmante": 10986337,
+                      "dvFirmante": "8",
+                      "idEnvio": "4222549288",
+                      "derrCodigo": null,
+                      "derrDescripcion": null,
+                      "datosExpA": null,
+                      "datosExpB1": null,
+                      "datosExpB": null
+                    },
+                    "impuestoAdicional": [],
+                    "respEstado": {
+                      "codRespuesta": 0,
+                      "msgeRespuesta": null,
+                      "codError": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos recibida"
+        }
+      }
+    },
+    "/CDI/ecliente/datos": {
+      "post": {
+        "summary": "CDI Clientes Datos de Contacto y Cuenta",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Datos procesados con exito"
+          }
+        },
+        "operationId": "post-CDI-ecliente-datos",
+        "description": "Servicio que gestiona la informacion rescata desde la cola DATOSCLI para distribucion en los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo Cuenta": {
+                  "value": {
+                    "origen": "OCTA",
+                    "tipo": "CUENTA",
+                    "rutcli": "766967418",
+                    "banco": "CHILE",
+                    "rutcta": "122436756",
+                    "tipcta": "CORRIENTE",
+                    "numcta": "00000765",
+                    "email": "jperez@gmail.com"
+                  }
+                },
+                "Ejemplo Contacto": {
+                  "value": {
+                    "origen": "OCTA",
+                    "tipo": "CONTACTO",
+                    "rutcli": "122436756",
+                    "telefono": "936722161",
+                    "direccion": "Av. El Bosque Norte 0440, piso 12, Las Condes / Santiago / Chile",
+                    "Email": "javier.guajardo@gmail.com",
+                    "contactos": [
+                      {
+                        "nombre": "Juan Perez",
+                        "Cargo": "Jefe de Finanzas",
+                        "fono": "98788999",
+                        "email": "jperez@gmail.com",
+                        "Area": "Finanzas"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de Datos Recibida"
+        }
+      }
+    },
+    "/CDI/Documentos": {
+      "post": {
+        "summary": "CDI Carga Documentos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Datos procesados con exito"
+          }
+        },
+        "operationId": "post-CDI-Documentos",
+        "description": "Servicio que gestiona la informacion rescata desde la cola DOCUMENTOS para distribucion en los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "documentos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "id del documento"
+                        },
+                        "link": {
+                          "type": "string",
+                          "description": "Link de descarga del documento"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    }
+                  },
+                  "numoperacion": {
+                    "type": "number",
+                    "description": "Numero de la operacion asociada"
+                  },
+                  "tipDocumentos": {
+                    "type": "string",
+                    "description": "Tipo de documentos LEGALES / FACTORING / LEASING"
+                  },
+                  "rutcli": {
+                    "type": "string",
+                    "description": "Rut del Cliente"
+                  },
+                  "origen": {
+                    "type": "string",
+                    "description": "Canal de Origen de la informacion"
+                  }
+                },
+                "required": [
+                  "documentos",
+                  "numoperacion",
+                  "tipDocumentos",
+                  "rutcli",
+                  "origen"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "origen": "OCTA",
+                    "rutcli": "19",
+                    "tipDocumentos": "LEGALES",
+                    "numoperacion": 12,
+                    "documentos": [
+                      {
+                        "id": 1,
+                        "link": "www.octa.cl\\documentos\\1.pdf"
+                      },
+                      {
+                        "id": 2,
+                        "link": "www.octa.cl\\documentos\\2.pdf"
+                      },
+                      {
+                        "id": 3,
+                        "link": "www.octa.cl\\documentos\\3.pdf"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

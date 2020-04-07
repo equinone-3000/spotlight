@@ -1,0 +1,39 @@
+{
+  "sheet_nbr": 68369,
+  "sender_tid": "99501480-7",
+  "receiver_tid": "76592372-7",
+  "executor_tid": "10986337-8",
+  "sender_name": "PENTA FINANCIERO SA",
+  "receiver_name": "ALTAMIRA TRADING SPA",
+  "executor_name": null,
+  "document_type": 33,
+  "exempt_amount": null,
+  "vat_amount": 95,
+  "total_amount": 595,
+  "net_amount": 500,
+  "hash_key": null,
+  "creation_date": "18/12/2019",
+  "receival_date": "18/12/2019",
+  "executor_date": null,
+  "related_docs": [
+    {
+      "document_type": 61,
+      "sheet_nbr": 1590,
+      "sender_tid": "99501480-7",
+      "sender_name": "PENTA FINANCIERO SA",
+      "receiver_name": "ALTAMIRA TRADING SPA",
+      "total_amount": 595,
+      "vat_amount": 95,
+      "net_amount": 500,
+      "creation_date": "2019-12-30",
+      "receival_date": "2020-01-02 09:32:39"
+    }
+  ],
+  "events": [
+    {
+      "state": null,
+      "date": null,
+      "retrieved_date": null
+    }
+  ]
+}

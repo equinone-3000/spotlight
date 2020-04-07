@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "tpgcGTO",
+    "version": "1.0",
+    "contact": {
+      "name": "CRISTIAN PEÑALOZA",
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/tpgcGTO/Select/{producto}/{sucursal}": {
+      "get": {
+        "summary": "GASTOS",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Informacion Seleccionada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "gto_tip": {
+                        "type": "string",
+                        "description": "Tipo del Gasto"
+                      },
+                      "gto_nom": {
+                        "type": "string",
+                        "description": "Nombre del Gasto"
+                      },
+                      "gto_cli_pgo_nvo": {
+                        "type": "string",
+                        "description": "Monto Cobrado a Cliente Nuevo"
+                      },
+                      "gto_cli_pgo_ant": {
+                        "type": "string",
+                        "description": "Monto Cobrado a Cliente Antiguo"
+                      },
+                      "gto_cio_cbr": {
+                        "type": "string",
+                        "description": "Criterio de Cobro"
+                      },
+                      "gto_suc": {
+                        "type": "string",
+                        "description": "Descripcion de la Sucusal de donde se cursa el gasto"
+                      }
+                    },
+                    "required": [
+                      "gto_tip",
+                      "gto_nom",
+                      "gto_cli_pgo_nvo",
+                      "gto_cli_pgo_ant",
+                      "gto_cio_cbr",
+                      "gto_suc"
+                    ]
+                  }
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "Gastos": [
+                        {
+                          "gto_tip": "LEGAL",
+                          "gto_nom": "Contrato Marco",
+                          "gto_cli_pgo_nvo": 25000,
+                          "gto_cli_pgo_ant": 25000,
+                          "gto_cio_cbr": "Por Contrato"
+                        },
+                        {
+                          "gto_tip": "LEGAL",
+                          "gto_nom": "Pagare",
+                          "gto_cli_pgo_nvo": 25000,
+                          "gto_cli_pgo_ant": 25000,
+                          "gto_cio_cbr": "Por Operacion"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tpgcGTO-select",
+        "description": "Selecciona gastos asociados a un tipo operacion y una sucursal, si la sucursal viene en blanco o no viene son todos los gastos independiente de la sucursal",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "confirming",
+                "factoring"
+              ],
+              "default": "factoring",
+              "minLength": 0
+            },
+            "in": "query",
+            "name": "producto",
+            "description": "Producto asociado (FACTORING / CONFIRMING)",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "sucursal",
+            "description": "Codigo de la Sucursal asociada",
+            "required": true
+          }
+        ],
+        "requestBody": {}
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "producto",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "sucursal",
+          "in": "path",
+          "required": true
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

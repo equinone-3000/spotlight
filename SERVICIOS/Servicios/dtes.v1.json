@@ -1,0 +1,370 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "dtes",
+    "version": "1.0",
+    "description": "Administracion de Datos de documentos tributarios electronicos",
+    "contact": {
+      "name": "CRISTIAN PEÑALOZA",
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/dtes/cesion": {
+      "post": {
+        "summary": "Cesion de documentos",
+        "operationId": "post-dtes-cesion",
+        "responses": {
+          "200": {
+            "description": "Cesion informada exitosamente"
+          }
+        },
+        "description": "Servicio que dado los datos de cesion de DTES procesa e informa a los distintos sistemas",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "LOG_ID": 123,
+                    "VENDEDOR": "76696741-8",
+                    "ESTADO_CESION": "Cesion Vigente",
+                    "DEUDOR": "96623540-3",
+                    "MAIL_DEUDOR": null,
+                    "TIPO_DOC": "34",
+                    "NOMBRE_DOC": "Factura Exenta Electronica",
+                    "FOLIO_DOC": "45",
+                    "FCH_EMIS_DTE": "2019-09-04",
+                    "MNT_TOTAL": "896000",
+                    "CEDENTE": "76696741-8",
+                    "RZ_CEDENTE": "Narki Spa",
+                    "MAIL_CEDENTE": "jonas@narki.cl",
+                    "CESIONARIO": "76596744-9",
+                    "RZ_CESIONARIO": "CHITA SPA.",
+                    "MAIL_CESIONARIO": "contacto@chita.cl",
+                    "FCH_CESION": "2019-09-11 18:56",
+                    "MNT_CESION": "896000",
+                    "FCH_VENCIMIENTO": "2019-10-04"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Datos de cesion de documentos"
+        }
+      }
+    },
+    "/dtes/nueva": {
+      "post": {
+        "summary": "Inicia Creacion DTE",
+        "operationId": "post-dtes-nueva",
+        "responses": {
+          "200": {
+            "description": "Documento creado con Exito"
+          }
+        },
+        "description": "Servicio que inicia la creacion de una DTE",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut del emisor del documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "codigo del tipo de documento"
+                  },
+                  "rutReceptor": {
+                    "type": "string",
+                    "description": "rut del receptor del documento"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "folio del documento"
+                  },
+                  "fechaEmision": {
+                    "type": "string",
+                    "description": "fecha de emision del documento"
+                  },
+                  "mntTotal": {
+                    "type": "string",
+                    "description": "monto total del documento"
+                  },
+                  "origen": {
+                    "type": "string",
+                    "description": "canal de origen del documento"
+                  },
+                  "Log_ID": {
+                    "type": "string",
+                    "description": "codigo de log de trazabilidad"
+                  },
+                  "idCliCore": {
+                    "type": "string",
+                    "description": "ID ENTIDAD CLIENTE entregado por el servicio de Core Cliente"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "codigoTipoDoc",
+                  "rutReceptor",
+                  "folio",
+                  "fechaEmision",
+                  "mntTotal",
+                  "origen",
+                  "Log_ID",
+                  "idCliCore"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": 995014807,
+                    "codigoTipoDoc": 33,
+                    "rutReceptor": 765923727,
+                    "folio": 68369,
+                    "fechaEmision": "18/12/2019",
+                    "mntTotal": 595,
+                    "origen": "OCTA",
+                    "Log_ID": 123,
+                    "idCliCore": 345
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de Datos Recibida"
+        }
+      }
+    },
+    "/dtes/MPrecios": {
+      "post": {
+        "summary": "Calculo del Motor de Precios",
+        "operationId": "post-dtes-MPrecios",
+        "responses": {
+          "200": {
+            "description": "Calculo Realizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "FecVcto": {
+                      "type": "string",
+                      "description": "Fecha de Vencimiento"
+                    },
+                    "TasApl": {
+                      "type": "number",
+                      "description": "Tasa Aplicada"
+                    },
+                    "FacAnt": {
+                      "type": "number",
+                      "description": "Factor de Anticipo"
+                    }
+                  },
+                  "required": [
+                    "FecVcto",
+                    "TasApl",
+                    "FacAnt"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "FecVcto": "23-12-2019",
+                      "TasApl": "0,8",
+                      "FacAnt": "98"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Calcula condiciones comerciales a la DTE ingresada en su relacion cliente-deudor",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut del emisor del documento"
+                  },
+                  "rutReceptor": {
+                    "type": "string",
+                    "description": "Rut del Receptor del Documento"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "rutReceptor"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "19",
+                    "rutReceptor": "27"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de Datos Requerida"
+        }
+      }
+    },
+    "/dtes/notas": {
+      "post": {
+        "summary": "Informa Notas",
+        "operationId": "post-dtes-notas",
+        "responses": {
+          "200": {
+            "description": "OK Documento Informado con Exito"
+          }
+        },
+        "description": "Servicio de Integracion de los documentos tipo Nota de Credito y Debito",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut Emisor de la Nota"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "Tipo de Documento "
+                  },
+                  "folio": {
+                    "type": "number",
+                    "description": "Folio del Documento"
+                  },
+                  "mntTotNC": {
+                    "type": "number",
+                    "description": "Monto Total de Notas de Credito"
+                  },
+                  "numTotNC": {
+                    "type": "number",
+                    "description": "Numero Total de Notas de Credito"
+                  },
+                  "mntTotND": {
+                    "type": "number",
+                    "description": "Monto Total de Notas de Debito"
+                  },
+                  "numTotND": {
+                    "type": "number",
+                    "description": "Numero Total de Notas de Debito"
+                  },
+                  "Log_id": {
+                    "type": "number",
+                    "description": "ID del Log de Transaccionalidad"
+                  },
+                  "NumOpe": {
+                    "type": "number",
+                    "description": "Numero de Operacion asociada a la DTE"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "codigoTipoDoc",
+                  "folio",
+                  "mntTotNC",
+                  "numTotNC",
+                  "mntTotND",
+                  "numTotND",
+                  "Log_id",
+                  "NumOpe"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": 995014807,
+                    "codigoTipoDoc": 61,
+                    "folio": 68369,
+                    "mntTotNC": 1,
+                    "numTotNC": 595,
+                    "mntTotND": 0,
+                    "numTotND": 0,
+                    "Log_ID": 123,
+                    "NumOpe": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

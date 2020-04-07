@@ -1,0 +1,844 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "tpgcDTE",
+    "version": "1.0",
+    "description": "CRUD tabla de entidades (TPGC_DTE) de base de datos ODS (BPGC_GES_CMR)",
+    "contact": {
+      "email": "cpenaloza@pentafinanciero.cl",
+      "url": "www.pentafinanciero.cl",
+      "name": "CRISTIAN PEÑALOZA"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/tpgcDTE/Select": {
+      "get": {
+        "summary": "Consulta Registro",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK documento existe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dte_mto_ope": {
+                      "type": "number",
+                      "description": "Monto Total de la operación "
+                    },
+                    "dte_num_ope": {
+                      "type": "number",
+                      "description": "numero de la operacion asignado"
+                    }
+                  },
+                  "required": [
+                    "dte_mto_ope",
+                    "dte_num_ope"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "dte_mto_ope": 100000,
+                      "dte_num_ope": 123
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Documento no existe"
+          }
+        },
+        "operationId": "get-tpgcDTE-Select",
+        "description": "Selecciona documento asociado al Cliente sin importar origen",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut del Cliente"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "Folio del Documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "Tipo del Documento"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "folio",
+                  "codigoTipoDoc"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "766967418",
+                    "codigoTipoDoc": "34",
+                    "folio": "45"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Datos de basicos para consulta de DTE"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/tpgcDTE/Update/cesion": {
+      "put": {
+        "summary": "Actualiza Registro",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Actualizacion realiza en forma exitosa"
+          }
+        },
+        "operationId": "put-tpgcDTE-Update",
+        "description": "Actualiza datos cesion del documento",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "rut del cliente"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "folio del documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "tipo del documento"
+                  },
+                  "fecsec": {
+                    "type": "string",
+                    "description": "Fecha en que se realizo la cesion"
+                  },
+                  "codlog": {
+                    "type": "string",
+                    "description": "Codigo de Log en cuando llego la cesion informada"
+                  },
+                  "rutces": {
+                    "type": "string"
+                  },
+                  "estces": {
+                    "type": "string"
+                  },
+                  "estreg": {
+                    "type": "string",
+                    "description": "Estado del Registro"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "folio",
+                  "codigoTipoDoc",
+                  "fecsec",
+                  "codlog",
+                  "rutces",
+                  "estces",
+                  "estreg"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "766967418",
+                    "codigoTipoDoc": "34",
+                    "folio": "45",
+                    "fecsec": "20200401",
+                    "rutsec": "122436756",
+                    "estces": "SI",
+                    "codlog": 12,
+                    "estreg": "SI"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estrutura de datos para actualizar"
+        }
+      },
+      "parameters": []
+    },
+    "/tpgcDTE/create": {
+      "post": {
+        "summary": "Crear Registro",
+        "operationId": "post-tpgcDTE-create",
+        "responses": {
+          "200": {
+            "description": "Documento Creado con Exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dte_id": {
+                      "type": "string",
+                      "description": "ID del registro creado"
+                    }
+                  },
+                  "required": [
+                    "dte_id"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "dte_id": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Crea un documento",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idCliCore": {
+                    "type": "number",
+                    "description": "ID ENTIDAD CLIENTE entregado por el servicio de Core Cliente"
+                  },
+                  "Log_ID": {
+                    "type": "number",
+                    "description": "codigo de log de trazabilidad"
+                  },
+                  "origen": {
+                    "type": "string",
+                    "description": "canal de origen del documento"
+                  },
+                  "mntTotal": {
+                    "type": "number",
+                    "description": "monto total del documento"
+                  },
+                  "fechaEmision": {
+                    "type": "string",
+                    "description": "fecha de emision del documento"
+                  },
+                  "folio": {
+                    "type": "number",
+                    "description": "folio del documento"
+                  },
+                  "rutReceptor": {
+                    "type": "string",
+                    "description": "rut del receptor del documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "number",
+                    "description": "codigo del tipo de documento"
+                  },
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut del emisor del documento"
+                  },
+                  "AcuPagador": {
+                    "type": "string",
+                    "description": "Acuerdo Pagador"
+                  },
+                  "SubLimite": {
+                    "type": "number",
+                    "description": "SubLimite Disponible"
+                  },
+                  "FecVcto": {
+                    "type": "string",
+                    "description": "Fecha de Vencimiento segun Motor de Precios"
+                  },
+                  "TasApl": {
+                    "type": "number",
+                    "description": "Tasa Aplicada segun Motor de Precios"
+                  },
+                  "FacAnt": {
+                    "type": "string",
+                    "description": "Factor de Anticipo segun Motor de Precios"
+                  },
+                  "MtoAbono": {
+                    "type": "number",
+                    "description": "Monto del Abono"
+                  },
+                  "mntTotNC": {
+                    "type": "number",
+                    "description": "Monto Total de la Nota de Credito"
+                  },
+                  "numTotNC": {
+                    "type": "number",
+                    "description": "Numero Total de Notas de Credito"
+                  },
+                  "numTotND": {
+                    "type": "number",
+                    "description": "Numero Total de Notas de Debito"
+                  }
+                },
+                "required": [
+                  "idCliCore",
+                  "Log_ID",
+                  "origen",
+                  "mntTotal",
+                  "fechaEmision",
+                  "folio",
+                  "rutReceptor",
+                  "codigoTipoDoc",
+                  "rutEmisor",
+                  "AcuPagador",
+                  "SubLimite",
+                  "FecVcto",
+                  "TasApl",
+                  "FacAnt",
+                  "MtoAbono",
+                  "mntTotNC",
+                  "numTotNC",
+                  "numTotND",
+                  "numTotND"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": 995014807,
+                    "codigoTipoDoc": 33,
+                    "rutReceptor": 765923727,
+                    "folio": 68369,
+                    "fechaEmision": "18/12/2019",
+                    "mntTotal": 1200,
+                    "origen": "OCTA",
+                    "Log_ID": 123,
+                    "idCliCore": 345,
+                    "AcuPagador": "NO",
+                    "SubLimite": "100",
+                    "FecVcto": "23-12-2019",
+                    "TasApl": "0,8",
+                    "FacAnt": "98",
+                    "MtoAbono": 583,
+                    "mntTotNC": 1200,
+                    "numTotNC": 1,
+                    "mntTotND": 1200,
+                    "numTotND": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tpgcDTE/Update/Credito": {
+      "put": {
+        "summary": "Actualiza Registro",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Actualizacion realiza en forma exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dte_mto_ope ": {
+                      "type": "string",
+                      "description": "Monto final del documento"
+                    },
+                    "dte_mto_nc ": {
+                      "type": "string",
+                      "description": "Monto Total de Notas de Credito Aplicada"
+                    },
+                    "dte_tot_nc ": {
+                      "type": "string",
+                      "description": "Total de Notas de Credito Aplicada"
+                    }
+                  },
+                  "required": [
+                    "dte_mto_ope ",
+                    "dte_mto_nc ",
+                    "dte_tot_nc "
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "dte_mto_ope": "1000",
+                      "dte_mto_nc": "100",
+                      "dte_tot_nc ": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tpgcDTE-Update-Credito",
+        "description": "Actualiza datos del documento a causa de una nota de credito",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "rut del cliente"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "folio del documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "tipo del documento"
+                  },
+                  "mntTotal": {
+                    "type": "string",
+                    "description": "Monto Total de Notas de Credito"
+                  },
+                  "numTotal": {
+                    "type": "string",
+                    "description": "Numero Total de Notas de Credito"
+                  },
+                  "Log_ID": {
+                    "type": "string",
+                    "description": "ID log de transaccionalidad"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "folio",
+                  "codigoTipoDoc",
+                  "mntTotal",
+                  "numTotal",
+                  "Log_ID"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "766967418",
+                    "codigoTipoDoc": "61",
+                    "folio": "45",
+                    "mntTotal": 1200,
+                    "numTotal": 1,
+                    "Log_ID": 123
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estrutura de datos para actualizar"
+        }
+      }
+    },
+    "/tpgcDTE/Update/Debito": {
+      "put": {
+        "summary": "Actualiza Registro",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Actualizacion realiza en forma exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dte_mto_ope ": {
+                      "type": "string",
+                      "description": "Monto final del documento"
+                    },
+                    "dte_mto_nc ": {
+                      "type": "string",
+                      "description": "Monto Total de Notas de Credito Aplicada"
+                    },
+                    "dte_tot_nc ": {
+                      "type": "string",
+                      "description": "Total de Notas de Credito Aplicada"
+                    }
+                  },
+                  "required": [
+                    "dte_mto_ope ",
+                    "dte_mto_nc ",
+                    "dte_tot_nc "
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "dte_mto_ope": "1000",
+                      "dte_mto_nc": "100",
+                      "dte_tot_nc ": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-tpgcDTE-Update-Debito",
+        "description": "Actualiza datos del documento a causa de una nota de Debito",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "rut del cliente"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "folio del documento"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "tipo del documento"
+                  },
+                  "mntTotal": {
+                    "type": "string",
+                    "description": "Monto Total de Notas de Debito"
+                  },
+                  "numTotal": {
+                    "type": "string",
+                    "description": "Numero Total de Notas de Debito"
+                  },
+                  "Log_ID": {
+                    "type": "string",
+                    "description": "ID log de transaccionalidad"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "folio",
+                  "codigoTipoDoc",
+                  "mntTotal",
+                  "numTotal",
+                  "Log_ID"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "766967418",
+                    "codigoTipoDoc": "56",
+                    "folio": "45",
+                    "mntTotal": 1200,
+                    "numTotal": 1,
+                    "Log_ID": 123
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estrutura de datos para actualizar"
+        }
+      }
+    },
+    "/tpgcDTE/Select/Origen": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK documento existe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "cliid": {
+                      "type": "number",
+                      "description": "Monto total de la operacion"
+                    },
+                    "dteid": {
+                      "type": "number",
+                      "description": "Numero de la operacion"
+                    },
+                    "clinumdoc": {
+                      "type": "string"
+                    },
+                    "dterutrec": {
+                      "type": "string"
+                    },
+                    "dtetipdoc": {
+                      "type": "string"
+                    },
+                    "dtefol": {
+                      "type": "number"
+                    },
+                    "dtefecemi": {
+                      "type": "string"
+                    },
+                    "dtemtotot": {
+                      "type": "number"
+                    },
+                    "dtelogori": {
+                      "type": "number"
+                    },
+                    "dtecnlori": {
+                      "type": "string"
+                    },
+                    "dtevgt": {
+                      "type": "string"
+                    },
+                    "dteacupag": {
+                      "type": "string"
+                    },
+                    "dtesltdis": {
+                      "type": "number"
+                    },
+                    "dtefecvto": {
+                      "type": "string"
+                    },
+                    "dtetsaapl": {
+                      "type": "string"
+                    },
+                    "dtefctant": {
+                      "type": "string"
+                    },
+                    "dtemtoabo": {
+                      "type": "number"
+                    },
+                    "dtenumope": {
+                      "type": "number"
+                    },
+                    "dtemtoope": {
+                      "type": "number"
+                    },
+                    "dtemtonc": {
+                      "type": "number"
+                    },
+                    "dtetotnc": {
+                      "type": "number"
+                    },
+                    "dtemtond": {
+                      "type": "number"
+                    },
+                    "dtetotnd": {
+                      "type": "number"
+                    },
+                    "dteestces": {
+                      "type": "string"
+                    },
+                    "dtefecces": {
+                      "type": "string"
+                    },
+                    "dterutces": {
+                      "type": "string"
+                    },
+                    "dtelogces": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "cliid",
+                    "dteid",
+                    "clinumdoc",
+                    "dterutrec",
+                    "dtetipdoc",
+                    "dtefol",
+                    "dtefecemi",
+                    "dtemtotot",
+                    "dtelogori",
+                    "dtecnlori",
+                    "dtevgt",
+                    "dteacupag",
+                    "dtesltdis",
+                    "dtefecvto",
+                    "dtetsaapl",
+                    "dtefctant",
+                    "dtemtoabo",
+                    "dtenumope",
+                    "dtemtoope",
+                    "dtemtonc",
+                    "dtetotnc",
+                    "dtemtond",
+                    "dtetotnd",
+                    "dteestces",
+                    "dtefecces",
+                    "dterutces",
+                    "dtelogces"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "cliid": 123,
+                      "dteid": 1,
+                      "clinumdoc": 19,
+                      "dterutrec": 27,
+                      "dtetipdoc": 33,
+                      "dtefol": 245,
+                      "dtefecemi": "01/01/2020",
+                      "dtemtotot": 1000,
+                      "dtelogori": 23,
+                      "dtecnlori": "OCTA",
+                      "dtevgt": "VIGENTE",
+                      "dteacupag": "SI",
+                      "dtesltdis": 10000,
+                      "dtefecvto": "01/02/2020",
+                      "dtetsaapl": "7%",
+                      "dtefctant": "98%",
+                      "dtemtoabo": 980,
+                      "dtenumope": 0,
+                      "dtemtoope": 980,
+                      "dtemtonc": 0,
+                      "dtetotnc": 0,
+                      "dtemtond": 0,
+                      "dtetotnd": 0,
+                      "dteestces": "NO",
+                      "dtefecces": null,
+                      "dterutces": null,
+                      "dtelogces": null
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Registro no encontrado"
+          }
+        },
+        "operationId": "get-tpgcDTE-Select-Origen",
+        "description": "Selecciona documento asociado al Cliente segun origen del documento",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutEmisor": {
+                    "type": "string",
+                    "description": "Rut emisor de la factura"
+                  },
+                  "codigoTipoDoc": {
+                    "type": "string",
+                    "description": "Codigo tipo de documento"
+                  },
+                  "folio": {
+                    "type": "string",
+                    "description": "Folio del documento"
+                  },
+                  "origen": {
+                    "type": "string",
+                    "description": "Canal por donde llego el documento"
+                  }
+                },
+                "required": [
+                  "rutEmisor",
+                  "codigoTipoDoc",
+                  "folio",
+                  "origen"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutEmisor": "766967418",
+                    "codigoTipoDoc": "34",
+                    "folio": "45",
+                    "origen": "OCTA"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos requerida"
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

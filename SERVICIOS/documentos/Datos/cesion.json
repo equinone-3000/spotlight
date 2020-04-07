@@ -1,0 +1,29 @@
+{
+  "company_id": "76696741-8",
+  "data": [
+    {
+      "01092019-01102019": [
+        {
+          "VENDEDOR": "76696741-8",
+          "ESTADO_CESION": "Cesion Vigente",
+          "DEUDOR": "96623540-3",
+          "MAIL_DEUDOR": null,
+          "TIPO_DOC": "34",
+          "NOMBRE_DOC": "Factura Exenta Electronica",
+          "FOLIO_DOC": "45",
+          "FCH_EMIS_DTE": "2019-09-04",
+          "MNT_TOTAL": "896000",
+          "CEDENTE": "76696741-8",
+          "RZ_CEDENTE": "Narki Spa",
+          "MAIL_CEDENTE": "jonas@narki.cl",
+          "CESIONARIO": "76596744-9",
+          "RZ_CESIONARIO": "CHITA SPA.",
+          "MAIL_CESIONARIO": "contacto@chita.cl",
+          "FCH_CESION": "2019-09-11 18:56",
+          "MNT_CESION": "896000",
+          "FCH_VENCIMIENTO": "2019-10-04"
+        }
+      ]
+    }
+  ]
+}

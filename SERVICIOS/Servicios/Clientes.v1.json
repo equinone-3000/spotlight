@@ -1,0 +1,1306 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Clientes",
+    "version": "1.0",
+    "description": "Administracion de Datos de Clientes",
+    "contact": {
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl",
+      "name": "CRISTIAN PEÑALOZA"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/Clientes/nuevo": {
+      "get": {
+        "summary": "Clientes Nuevo",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Creacion de Cliente creado con Exito",
+            "headers": {}
+          }
+        },
+        "operationId": "get-Clientes-nuevo",
+        "description": "Creaccion de Cliente en los siguientes destinos:\n1.- Core Cliente de GVE (Ver: CrearCliente.md)\n2.- Core Cliente de DERIVATIK (Ver: )\n3.- En Base de datos local (BPGC_GES_CMR\\TPGC_CLI)",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tipodoc": {
+                    "type": "string",
+                    "description": "Tipo de documento Ej:pasaporte, Rut"
+                  },
+                  "rut": {
+                    "type": "string",
+                    "description": "Rut de Cliente persona o empresa"
+                  },
+                  "dv": {
+                    "type": "string",
+                    "description": "Digito Verificador asociado al Rut"
+                  },
+                  "identificacion": {
+                    "type": "string",
+                    "description": "Razon Social del Cliente"
+                  },
+                  "personaEmpresa": {
+                    "type": "string",
+                    "description": "Si cliente es Persona o Empresa"
+                  },
+                  "paisCodigo": {
+                    "type": "integer",
+                    "description": "Codigo del Pais de Origen del Cliente"
+                  }
+                },
+                "required": [
+                  "tipodoc",
+                  "rut",
+                  "dv",
+                  "identificacion",
+                  "personaEmpresa",
+                  "paisCodigo"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "tipodoc": "1",
+                    "rut": "99501480",
+                    "dv": "7",
+                    "identificacion": "PENTA FINANCIERO S.A",
+                    "personaEmpresa": "EMPRESA",
+                    "paisCodigo": 997
+                  }
+                }
+              }
+            }
+          },
+          "description": "Datos de basicos para creacion de cliente"
+        }
+      }
+    },
+    "/Clientes/doctos/ctributaria": {
+      "get": {
+        "summary": "Carpeta Tributaria",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Extraccion y Procesamiento terminado con exito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "datosjson": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-Clientes-doctos-ctributaria",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "link": {
+                    "type": "string",
+                    "description": "Link de referencia a la carpeta tributaria"
+                  }
+                },
+                "required": [
+                  "link"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "link": "http:\\nombrecarpeta.pdf"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Datos de basicos para procesar carpeta tributaria"
+        },
+        "description": "Servicio que dado el Link extrae desde una ruta del Portal Web documento pdf asociado a la carpeta tributaria\ny lo envia a SAFE para procesamiento y extraccion de infromacion en formato JSON"
+      }
+    },
+    "/Cliente/ConAcuerdo": {
+      "get": {
+        "summary": "Acuerdo Pagador",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Ok Cliente Encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "AcuPagador": {
+                      "type": "string",
+                      "description": "Acuerdo Pagador del Deudor"
+                    },
+                    "SubLimite": {
+                      "type": "string",
+                      "description": "SubLimite Disponible del Deudor"
+                    }
+                  },
+                  "required": [
+                    "AcuPagador",
+                    "SubLimite"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-Cliente-Dtes-Acuerdo",
+        "description": "Busca si un cliente tiene o no acuerdo pagador y su sublinea Disponible",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idCliCore": {
+                    "type": "number",
+                    "description": "ID ENTIDAD CLIENTE entregado por el servicio de Core Cliente"
+                  }
+                },
+                "required": [
+                  "idCliCore"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "idCliCore": 123
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/Cliente/cuenta": {
+      "post": {
+        "summary": "Crear Datos de Cuenta",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Cuenta Creada con exito"
+          }
+        },
+        "operationId": "post-Cliente-cuenta",
+        "description": "Se sincroniza los datos de Cuenta del cliente",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "idCliCore": 123,
+                    "origen": "OCTA",
+                    "tipo": "CUENTA",
+                    "rutcli": "766967418",
+                    "banco": "CHILE",
+                    "rutcta": "122436756",
+                    "tipcta": "CORRIENTE",
+                    "numcta": "00000765",
+                    "email": "jperez@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Escrutura de Datos Solicitada"
+        }
+      }
+    },
+    "/Cliente/contacto": {
+      "post": {
+        "summary": "Crear Datos de Contacto",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Contacto creado con exito"
+          }
+        },
+        "operationId": "post-Cliente-contacto",
+        "description": "Se sincroniza los datos de contacto del cliente",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "name": "Content-Type"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "idCliCore": 123,
+                    "origen": "OCTA",
+                    "tipo": "CONTACTO",
+                    "rutcli": "122436756",
+                    "telefono": "936722161",
+                    "direccion": "Av. El Bosque Norte 0440, piso 12, Las Condes / Santiago / Chile",
+                    "Email": "javier.guajardo@gmail.com",
+                    "contactos": [
+                      {
+                        "nombre": "Juan Perez",
+                        "Cargo": "Jefe de Finanzas",
+                        "fono": "98788999",
+                        "email": "jperez@gmail.com",
+                        "Area": "Finanzas"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Escrutura de Datos Solicitada"
+        }
+      }
+    },
+    "/Clientes/{rut}/Contratos/{estado}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "estado",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Lista de Contratos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OKA",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fecFirma": {
+                        "type": "string"
+                      },
+                      "documento": {
+                        "type": "string"
+                      },
+                      "Link": {
+                        "type": "string"
+                      },
+                      "numopera": {
+                        "type": "string"
+                      },
+                      "estado": {
+                        "type": "string"
+                      },
+                      "Productos": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "contratos": [
+                        {
+                          "fecfirma": "31/10/2019",
+                          "documento": "Nombre del Documento",
+                          "Link": "Link de Descarga",
+                          "numopera": "numero de operacion",
+                          "estado": "firmado",
+                          "productos": [
+                            "prod1",
+                            "prod2",
+                            "prod3"
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "multipart/form-data": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Datos no Encontrados"
+          }
+        },
+        "operationId": "get-Clientes-rut-Contratos-estado",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "Rut del Cliente",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "firmados",
+                "nofirmados",
+                "ambos"
+              ],
+              "default": "firmados"
+            },
+            "in": "query",
+            "name": "estado",
+            "description": "Estados del contrato (FIRMADOS / NOFIMARMADOS / AMBOS)",
+            "required": true
+          }
+        ],
+        "description": "Consulta de Contratos (FIRMADOS / NOFIMARMADOS / AMBOS) por cliente:"
+      }
+    },
+    "/Clientes/{rut}/ReprLegales": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Representantes Legales",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OKA",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "description": "Arreglo de Reprsentantes Legales",
+                  "items": {
+                    "type": "object",
+                    "description": "Listado de Representantes Legales",
+                    "properties": {
+                      "rut": {
+                        "type": "string",
+                        "description": "Rut del Representante Legal sin punto y con guion"
+                      },
+                      "nombre": {
+                        "type": "string",
+                        "description": "Nombre del Representante Legal"
+                      }
+                    },
+                    "required": [
+                      "rut",
+                      "nombre"
+                    ]
+                  }
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "Representantes": [
+                        {
+                          "rut": "Rut del Representante Legal",
+                          "nombre": "Nombre del Representante Legal"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Datos no Encontrados"
+          }
+        },
+        "operationId": "get-Clientes-rut-ReprLegales",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "Rut del Cliente",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": ""
+        },
+        "description": "Lista de Representantes Legales vinculados al Cliente"
+      }
+    },
+    "/Clientes/{rut}/doctos/{tipo}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tipo",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Tipos de Documentos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OKA Documentos Encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "nombre": {
+                        "type": "string",
+                        "description": "Nombre del Documento"
+                      },
+                      "id": {
+                        "type": "number",
+                        "description": "ID asociado al documento"
+                      },
+                      "estado": {
+                        "type": "string",
+                        "description": "Estado del documento (sin cargar, cargado, aceptado, rechazado)"
+                      },
+                      "link1": {
+                        "type": "string",
+                        "description": "Link de descarga del documento cargado"
+                      },
+                      "link2": {
+                        "type": "string",
+                        "description": "Link de referencia a donde se puede obtener dicho documento"
+                      }
+                    },
+                    "required": [
+                      "nombre",
+                      "id",
+                      "estado",
+                      "link1",
+                      "link2"
+                    ]
+                  }
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "Documentos": [
+                        {
+                          "nombre": "Documentos 1",
+                          "id": 1,
+                          "estado": "cargado",
+                          "link1": "www.pentafinanciero.cl\\Clientes19\\documental\\UX76776777.pdf",
+                          "link2": "www.sii.cl"
+                        },
+                        {
+                          "nombre": "Documentos 2",
+                          "id": 2,
+                          "estado": "cargado",
+                          "link1": "www.pentafinanciero.cl\\Clientes\\19\\documental\\XC989999990.pdf",
+                          "link2": "www.tesoreria.cl"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-Clientes-rut-doctos-tipo",
+        "description": "Consulta de documentos (LEGALES / FACTORING / LEASING ) por cliente:",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "Rut del Cliente",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "legales",
+                "factoring",
+                "confirming"
+              ],
+              "default": "legales"
+            },
+            "in": "query",
+            "name": "tipo",
+            "description": "Tipo de Documento solicitado (LEGALES / FACTORING / LEASING ) ",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/Clientes/{rut}/documental/{pdf}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "pdf",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Consulta Documento",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Ok documento encontrado"
+          }
+        },
+        "operationId": "get-Clientes-rut-documental-pdf",
+        "description": "Consulta de documento desde el administrado documental por documento y cliente",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "Rut del Cliente",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "required": true,
+            "name": "PDF",
+            "description": "Nombre del Documento Solicitado"
+          }
+        ]
+      }
+    },
+    "/Clientes/{rut}/gastos/{producto}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "producto",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Condiciones",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "oka Datos encontrados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rutcli": {
+                      "type": "string",
+                      "description": "Rut cliente"
+                    },
+                    "tipcli": {
+                      "type": "string",
+                      "description": "tipo de cliente NUEVO o ANTIGUO"
+                    },
+                    "producto": {
+                      "type": "string",
+                      "description": "nombre del producto consultado"
+                    },
+                    "totgto": {
+                      "type": "number",
+                      "description": "total de gastos"
+                    },
+                    "gastos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tipo": {
+                            "type": "string",
+                            "description": "tipo de gastos "
+                          },
+                          "nombre": {
+                            "type": "string",
+                            "description": "nombre del gasto"
+                          },
+                          "monto": {
+                            "type": "number",
+                            "description": "monto del gastop"
+                          },
+                          "criterio": {
+                            "type": "string",
+                            "description": "criterio de cobro"
+                          }
+                        },
+                        "required": [
+                          "tipo",
+                          "nombre",
+                          "monto",
+                          "criterio"
+                        ]
+                      }
+                    },
+                    "comision": {
+                      "type": "number",
+                      "description": "Monto de Comision"
+                    },
+                    "mora": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tramo": {
+                            "type": "string",
+                            "description": "Tramo de Mora"
+                          },
+                          "tasa": {
+                            "type": "number",
+                            "description": "Tasa de Cobro por tramo"
+                          }
+                        },
+                        "required": [
+                          "tramo",
+                          "tasa"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "rutcli",
+                    "tipcli",
+                    "producto",
+                    "totgto",
+                    "gastos",
+                    "comision"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "rutcli": "19",
+                      "tipcli": "NUEVO",
+                      "producto": "FACTORING",
+                      "totgto": "1000",
+                      "comision": 25000,
+                      "Gastos": [
+                        {
+                          "tipo": "LEGAL",
+                          "nombre": "Contrato Marco",
+                          "Monto": 25000,
+                          "Criterio": "Por Contrato"
+                        },
+                        {
+                          "tipo": "LEGAL",
+                          "nombre": "Pagare",
+                          "Monto": 15000,
+                          "Criterio": "Por Operacion"
+                        }
+                      ],
+                      "mora": [
+                        {
+                          "tramo": "tramo 1",
+                          "tasa": "2%"
+                        },
+                        {
+                          "tramo": "tramo 2",
+                          "tasa": "3%"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-Clientes-rut-condiciones-producto",
+        "description": "Gastos asociados a un cliente y a una operaciones",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "name": "Content-Type",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "required": true,
+            "description": "Rut del Cliente"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "factoring",
+                "confirming"
+              ],
+              "default": "factoring"
+            },
+            "in": "query",
+            "required": true,
+            "name": "producto",
+            "description": "Producto asociado (FACTORING / CONFIRMING)"
+          }
+        ]
+      }
+    },
+    "/Clientes/{rut}/Datos": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Datos de Cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rutcli": {
+                      "type": "string",
+                      "description": "rut del cliente"
+                    },
+                    "tipcli": {
+                      "type": "string",
+                      "description": "tipo de cliente NUEVO O ANTIGUO"
+                    },
+                    "comision": {
+                      "type": "number",
+                      "description": "Comision de Cobro al cliente"
+                    },
+                    "mora": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tramo": {
+                            "type": "string",
+                            "description": "Tramo de Mora"
+                          },
+                          "tasa": {
+                            "type": "string",
+                            "description": "Tasa de Mora"
+                          }
+                        },
+                        "required": [
+                          "tramo",
+                          "tasa"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "rutcli",
+                    "tipcli",
+                    "comision",
+                    "mora"
+                  ]
+                },
+                "examples": {
+                  "ejemplo": {
+                    "value": {
+                      "rutcli": "19",
+                      "tipcli": "NUEVO",
+                      "comision": 25000,
+                      "mora": [
+                        {
+                          "tramo": "tramo 1",
+                          "tasa": "2%"
+                        },
+                        {
+                          "tramo": "tramo 2",
+                          "tasa": "3%"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-Clientes-rut-Datos",
+        "description": "Consulta de Datos de Cliente",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "name": "Content-Type",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "Rut del Cliente",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/Clientes/{rut}/operaciones/{estado}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "rut",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "estado",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Operaciones de un Cliente",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK Datos Seleccionados",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Folio": {
+                      "type": "number",
+                      "description": "Numero de la Operacion"
+                    },
+                    "Estado": {
+                      "type": "string",
+                      "description": "Estado de la Operacion EnCurse, Rechazda o Abonada"
+                    },
+                    "Tipo": {
+                      "type": "string",
+                      "description": "Tipo de la Operacion Parcial o Total"
+                    },
+                    "MtoGiro": {
+                      "type": "number",
+                      "description": "Monto del Giro"
+                    },
+                    "MtoTotal": {
+                      "type": "number",
+                      "description": "Monto Total de los Documentos asociados a la operacion"
+                    },
+                    "MtoExctes": {
+                      "type": "number",
+                      "description": "Monto de Excedentes"
+                    },
+                    "Feccurse": {
+                      "type": "string",
+                      "description": "Fecha de curse de la operacion"
+                    },
+                    "Fecabono": {
+                      "type": "string",
+                      "description": "Fecha de Abono del Pago"
+                    },
+                    "EstPago": {
+                      "type": "string",
+                      "description": "Estado de pago de operación (Vigente, Pagado, En Mora)"
+                    },
+                    "Documentos": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "FolDTE": {
+                            "type": "number",
+                            "description": "Folio o numero de la DTE asociada a la operacion"
+                          },
+                          "RutPagador": {
+                            "type": "string",
+                            "description": "Rut del Pagador"
+                          },
+                          "RSPagador": {
+                            "type": "string",
+                            "description": "Razon Social o Nombre del Pagador"
+                          },
+                          "MtoGiro": {
+                            "type": "number",
+                            "description": "Monto del Giro"
+                          },
+                          "MtoTot": {
+                            "type": "string",
+                            "description": "Monto Total"
+                          },
+                          "MtoExc": {
+                            "type": "number",
+                            "description": "Monto excedente"
+                          },
+                          "FecVto": {
+                            "type": "string",
+                            "description": "Fecha de Vencimiento"
+                          },
+                          "FecPag": {
+                            "type": "string",
+                            "description": " Fecha de pago real (por parte del pagador o cliente)"
+                          },
+                          "DetEst": {
+                            "type": "string",
+                            "description": "Detalle de Estado"
+                          }
+                        },
+                        "required": [
+                          "FolDTE",
+                          "RutPagador",
+                          "RSPagador",
+                          "MtoGiro",
+                          "MtoTot",
+                          "MtoExc",
+                          "FecVto",
+                          "FecPag",
+                          "DetEst"
+                        ]
+                      }
+                    },
+                    "Etapas": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ID": {
+                            "type": "string",
+                            "description": "Identificador de la Etapa"
+                          },
+                          "Nombre": {
+                            "type": "string",
+                            "description": "Nombre de la Etapa"
+                          },
+                          "Estado": {
+                            "type": "string",
+                            "description": "Estado de la Etapa"
+                          },
+                          "Tipo": {
+                            "type": "string",
+                            "description": "Tipo de etapa (accionable o no accionable)"
+                          }
+                        },
+                        "required": [
+                          "ID",
+                          "Nombre",
+                          "Estado",
+                          "Tipo"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "Folio",
+                    "Estado",
+                    "Tipo",
+                    "MtoGiro",
+                    "MtoTotal",
+                    "MtoExctes",
+                    "Feccurse",
+                    "Fecabono",
+                    "EstPago",
+                    "Documentos",
+                    "Etapas"
+                  ]
+                },
+                "examples": {
+                  "Ejemplo": {
+                    "value": {
+                      "Folio": 123,
+                      "Estado": "ABONADA",
+                      "Tipo": "TOTAL",
+                      "MtoGiro": 1000,
+                      "MtoTotal": 1000,
+                      "MtoExctes": 0,
+                      "Feccurse": "01/03/2020",
+                      "Fecabono": "31/03/2020",
+                      "EstPago": "VIGENTE",
+                      "Documentos": [
+                        {
+                          "FolDTE": 1,
+                          "RutPagador": "19",
+                          "RSPagador": "EMPRESA 19",
+                          "MtoGiro": 1000,
+                          "MtoTot": 1000,
+                          "MtoExc": 0,
+                          "FecVto": "10/04/2020",
+                          "FecPag": "10/04/2020",
+                          "DetEst": null
+                        }
+                      ],
+                      "Etapas": [
+                        {
+                          "ID": 1,
+                          "Nombre": "ABONADO",
+                          "Estado": "OKA",
+                          "Tipo": "NO ACCIONABLE"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-clientes-rut-operaciones-estado",
+        "description": "Listado de Operaciones de un Cliente por estado de la operacion",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "rut",
+            "description": "rut del cliente",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string",
+              "default": "enCurse",
+              "enum": [
+                "enCurse",
+                "Rechazadas",
+                "Abonadas"
+              ]
+            },
+            "in": "query",
+            "name": "estado",
+            "description": "estado de las operaciones enCurse / Rechazadas / Abonadas",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}

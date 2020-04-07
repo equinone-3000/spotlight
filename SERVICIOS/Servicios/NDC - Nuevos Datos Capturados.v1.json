@@ -1,0 +1,879 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Nuevos Datos Capturados (NDC)",
+    "version": "1.0",
+    "description": "Entrega de datos desde facturadores hacia la nube de azure de PFSA ",
+    "contact": {
+      "name": "CRISTIAN PEÑALOZA",
+      "url": "www.pentafinanciero.cl",
+      "email": "cpenaloza@pentafinanciero.cl"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/NDC/entidades": {
+      "post": {
+        "summary": "INGRESA NUEVA ENTIDAD",
+        "operationId": "post-entidad",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          },
+          "": {
+            "description": "Inicializado dato en Azure\\queue en forma exitosa"
+          }
+        },
+        "description": "Carga datos de la entidad cliente en Azure\\queue CLIENTE, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": " Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo Empresa": {
+                  "value": {
+                    "codigoError": 0,
+                    "descripcionError": "OK",
+                    "sysdate": null,
+                    "contribuyente": {
+                      "codigoError": 0,
+                      "descripcionError": "Contribuyente existe",
+                      "sysdate": null,
+                      "rut": "99501480",
+                      "dv": "7",
+                      "nombres": null,
+                      "apellidoPaterno": null,
+                      "apellidoMaterno": null,
+                      "razonSocial": "PENTA FINANCIERO S.A",
+                      "tipoContribuyenteCodigo": "2",
+                      "tipoContribuyenteDescripcion": "PERSONA JURIDICA COMERCIAL",
+                      "subtipoContribuyenteCodigo": "213",
+                      "subtipoContribuyenteDescrip": "SOCIEDADES ANONIMAS CERRADAS",
+                      "paisCodigo": null,
+                      "sexo": null,
+                      "numeroPasaporte": null,
+                      "fechaConstitucion": "2002-09-24 00:00:00.0",
+                      "fechaNacimiento": null,
+                      "fechaDefuncion": null,
+                      "eMail": "MFLORES@PENTAFINANCIERO.CL",
+                      "fechaCreaRegistroCntr": "2002-10-17 00:00:00.0",
+                      "fechaModiRegistroCntr": "2012-10-16 20:15:45.0",
+                      "telefonoMovil": "76959223",
+                      "fechaTerminoGiro": null,
+                      "autorizadoDeclararDia20": "S",
+                      "fechaInicioActividades": "2002-10-16 00:00:00.0",
+                      "unidadOperativaCodigo": "15000",
+                      "unidadOperativaDescripcion": "SANTIAGO ORIENTE",
+                      "unidadOperativaDireccion": "GENERAL DEL CANTO 281, PROVIDENCIA",
+                      "unidadOperativaGcCodigo": null,
+                      "unidadOperativaGcDescripcion": null,
+                      "unidadOperativaGcDireccion": null,
+                      "capitalPorEnterar": "0",
+                      "capitalEnterado": "6037769",
+                      "fIndVerificacion": "2018-02-07 13:01:38.0",
+                      "fechaCreaRegistroNeg": "2002-10-17 00:00:00.0",
+                      "fechaModiRegistroNeg": "2011-05-05 19:03:28.0",
+                      "segmentoCodigo": "SGGC",
+                      "segmentoDescripcion": "GRAN EMPRESA",
+                      "personaEmpresa": "EMPRESA",
+                      "glosaActividad": "FACTORING LEASING FINANC SERV DE COBRANZA DE CREDITO,ASESORIA ANALISIS",
+                      "tipoActuacion": "Cualquiera",
+                      "descripcionActuacion": null,
+                      "declaraTG": "No",
+                      "personaMiSii": "N"
+                    },
+                    "actEcos": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee actividades económicas",
+                        "sysdate": null,
+                        "codigo": "649100",
+                        "descripcion": "LEASING FINANCIERO",
+                        "categoriaTributaria": "1",
+                        "afectoIva": "S",
+                        "fechaInicio": "05-05-2011"
+                      }
+                    ],
+                    "direcciones": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee dirección",
+                        "sysdate": null,
+                        "codigo": "63316320",
+                        "comunaCodigo": "15108",
+                        "comunaDescripcion": "LAS CONDES",
+                        "regionCodigo": "13",
+                        "regionDescripcion": "REGION METROPOLITANA     ",
+                        "tipoDomicilioCodigo": "1",
+                        "tipoDomicilioDescripcion": "DOMICILIO",
+                        "manzana": "279",
+                        "predio": "109",
+                        "calle": "AL BOSQUE NORTE",
+                        "numero": "0440",
+                        "bloque": null,
+                        "departamento": "1201",
+                        "villaPoblacion": null,
+                        "ciudad": "STGO",
+                        "fax": null,
+                        "telefono": "27505700",
+                        "fuente": null,
+                        "tipoPropiedadCodigo": "2",
+                        "tipoPropiedadDescripcion": "ARRENDADO NOTARIAL",
+                        "rutPropietario": "96812960",
+                        "dvPropietario": "0",
+                        "canon": "7568",
+                        "areaTelefono": "2",
+                        "areaFax": null,
+                        "codigoPostal": null,
+                        "casilla": null,
+                        "correo": null,
+                        "mail": null,
+                        "fechaModiRegistro": "2017-01-27 13:17:00.0"
+                      }
+                    ],
+                    "representantes": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee representantes",
+                        "sysdate": null,
+                        "rut": "6069804",
+                        "dv": "K",
+                        "fechaInicio": "2007-10-26 00:00:00.0",
+                        "fechaTermino": "2013-08-14 00:00:00.0",
+                        "razonSocial": null,
+                        "nombres": "CARLOS ERNESTO",
+                        "apellidoPaterno": "MELIBOSKY",
+                        "apellidoMaterno": "GARCIA",
+                        "vigente": "N"
+                      }
+                    ],
+                    "socios": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente  posee socios",
+                        "sysdate": null,
+                        "index": 0,
+                        "rut": "76258327",
+                        "dv": "5",
+                        "fechaIncorporacion": "2016-06-29 00:00:00.0",
+                        "aportePorEnterar": "0",
+                        "fechaFinParticipacion": null,
+                        "sraGpk": null,
+                        "sraNdr": null,
+                        "aporteEnterado": "0",
+                        "participacionCapital": "99.99",
+                        "participacionUtilidades": "99.99",
+                        "fechaModificacion": null,
+                        "fechaPorEnterar": null,
+                        "porcentajeAtribucion": null,
+                        "razonSocial": "INVERSIONES BANPENTA II LIMITADA",
+                        "nombres": null,
+                        "apellidoPaterno": null,
+                        "apellidoMaterno": null,
+                        "vigente": "S"
+                      }
+                    ],
+                    "timbrajes": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee documentos",
+                        "sysdate": null,
+                        "codigo": "95",
+                        "descripcion": "BOLETAS DE PRESTACION DE SERVICIOS DE 3R",
+                        "numeroInicial": "1",
+                        "numeroFinal": "100",
+                        "fechaLegalizacion": "10-01-2003"
+                      }
+                    ]
+                  }
+                },
+                "Ejemplo Persona": {
+                  "value": {
+                    "codigoError": 0,
+                    "descripcionError": "OK",
+                    "sysdate": null,
+                    "contribuyente": {
+                      "codigoError": 0,
+                      "descripcionError": "Contribuyente existe",
+                      "sysdate": null,
+                      "rut": "16912112",
+                      "dv": "5",
+                      "nombres": "JONATHAN ANDRES",
+                      "apellidoPaterno": "ARANEDA",
+                      "apellidoMaterno": "LABARCA",
+                      "razonSocial": null,
+                      "tipoContribuyenteCodigo": "1",
+                      "tipoContribuyenteDescripcion": "PERSONA NATURAL",
+                      "subtipoContribuyenteCodigo": "111",
+                      "subtipoContribuyenteDescrip": "PERSONA NATURAL CHILENA",
+                      "paisCodigo": "999",
+                      "sexo": "M",
+                      "numeroPasaporte": null,
+                      "fechaConstitucion": null,
+                      "fechaNacimiento": "1988-10-21 00:00:00.0",
+                      "fechaDefuncion": null,
+                      "eMail": "JARANEDA88@GMAIL.COM",
+                      "fechaCreaRegistroCntr": "2001-03-05 00:00:00.0",
+                      "fechaModiRegistroCntr": "2013-04-15 09:29:06.0",
+                      "telefonoMovil": "90980408",
+                      "fechaTerminoGiro": null,
+                      "autorizadoDeclararDia20": "N",
+                      "fechaInicioActividades": "2010-09-12 00:00:00.0",
+                      "unidadOperativaCodigo": "15103",
+                      "unidadOperativaDescripcion": "PROVIDENCIA",
+                      "unidadOperativaDireccion": "AV. SUECIA 211, PROVIDENCIA",
+                      "unidadOperativaGcCodigo": null,
+                      "unidadOperativaGcDescripcion": null,
+                      "unidadOperativaGcDireccion": null,
+                      "capitalPorEnterar": "0",
+                      "capitalEnterado": "0",
+                      "fIndVerificacion": null,
+                      "fechaCreaRegistroNeg": "2010-09-12 18:14:49.0",
+                      "fechaModiRegistroNeg": "2010-09-12 18:14:49.0",
+                      "segmentoCodigo": "SGPE",
+                      "segmentoDescripcion": "PERSONA",
+                      "personaEmpresa": "PERSONA",
+                      "glosaActividad": "SERVICIO INFORMATICA",
+                      "tipoActuacion": null,
+                      "descripcionActuacion": null,
+                      "declaraTG": "No",
+                      "personaMiSii": "S"
+                    },
+                    "actEcos": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee actividades económicas",
+                        "sysdate": null,
+                        "codigo": "960909",
+                        "descripcion": "OTRAS ACTIVIDADES DE SERVICIOS PERSONALES N.C.P.",
+                        "categoriaTributaria": "2",
+                        "afectoIva": "N",
+                        "fechaInicio": "12-09-2010"
+                      }
+                    ],
+                    "direcciones": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee dirección",
+                        "sysdate": null,
+                        "codigo": "76117623",
+                        "comunaCodigo": "15103",
+                        "comunaDescripcion": "PROVIDENCIA",
+                        "regionCodigo": "13",
+                        "regionDescripcion": "REGION METROPOLITANA     ",
+                        "tipoDomicilioCodigo": "1",
+                        "tipoDomicilioDescripcion": "DOMICILIO",
+                        "manzana": null,
+                        "predio": null,
+                        "calle": "RomAn DIaz",
+                        "numero": "483",
+                        "bloque": null,
+                        "departamento": "401",
+                        "villaPoblacion": null,
+                        "ciudad": "SANTIAGO",
+                        "fax": null,
+                        "telefono": null,
+                        "fuente": null,
+                        "tipoPropiedadCodigo": null,
+                        "tipoPropiedadDescripcion": null,
+                        "rutPropietario": null,
+                        "dvPropietario": null,
+                        "canon": null,
+                        "areaTelefono": null,
+                        "areaFax": "0",
+                        "codigoPostal": null,
+                        "casilla": null,
+                        "correo": null,
+                        "mail": null,
+                        "fechaModiRegistro": "2018-02-04 11:24:38.0"
+                      }
+                    ],
+                    "representantes": [
+                      {
+                        "codigoError": 1,
+                        "descripcionError": "Contribuyente no posee representantes",
+                        "sysdate": null,
+                        "rut": null,
+                        "dv": null,
+                        "fechaInicio": null,
+                        "fechaTermino": null,
+                        "razonSocial": null,
+                        "nombres": null,
+                        "apellidoPaterno": null,
+                        "apellidoMaterno": null,
+                        "vigente": null
+                      }
+                    ],
+                    "socios": [
+                      {
+                        "codigoError": 1,
+                        "descripcionError": "Contribuyente no posee socios",
+                        "sysdate": null,
+                        "index": 0,
+                        "rut": null,
+                        "dv": null,
+                        "fechaIncorporacion": null,
+                        "aportePorEnterar": null,
+                        "fechaFinParticipacion": null,
+                        "sraGpk": null,
+                        "sraNdr": null,
+                        "aporteEnterado": null,
+                        "participacionCapital": null,
+                        "participacionUtilidades": null,
+                        "fechaModificacion": null,
+                        "fechaPorEnterar": null,
+                        "porcentajeAtribucion": null,
+                        "razonSocial": null,
+                        "nombres": null,
+                        "apellidoPaterno": null,
+                        "apellidoMaterno": null,
+                        "vigente": null
+                      }
+                    ],
+                    "timbrajes": [
+                      {
+                        "codigoError": 0,
+                        "descripcionError": "Contribuyente posee documentos",
+                        "sysdate": null,
+                        "codigo": "66",
+                        "descripcion": "BOLETAS DE HONORARIOS ELECTRONICAS",
+                        "numeroInicial": "1",
+                        "numeroFinal": "13",
+                        "fechaLegalizacion": "19-01-2020"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de cliente recibida"
+        }
+      },
+      "parameters": []
+    },
+    "/NDC/dtes": {
+      "post": {
+        "summary": "INGRESA NUEVOS DOCUMENTOS DTES",
+        "operationId": "post-dtes",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          }
+        },
+        "description": "Carga datos de documentos tributarios electronicos (DTE) en Azure\\queue DTES, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "sheet_nbr": 68369,
+                    "sender_tid": "99501480-7",
+                    "receiver_tid": "76592372-7",
+                    "executor_tid": "10986337-8",
+                    "sender_name": "PENTA FINANCIERO SA",
+                    "receiver_name": "ALTAMIRA TRADING SPA",
+                    "executor_name": null,
+                    "document_type": 33,
+                    "exempt_amount": null,
+                    "vat_amount": 95,
+                    "total_amount": 595,
+                    "net_amount": 500,
+                    "hash_key": null,
+                    "creation_date": "18/12/2019",
+                    "receival_date": "18/12/2019",
+                    "executor_date": null,
+                    "related_docs": [
+                      {
+                        "document_type": 61,
+                        "sheet_nbr": 1590,
+                        "sender_tid": "99501480-7",
+                        "sender_name": "PENTA FINANCIERO SA",
+                        "receiver_name": "ALTAMIRA TRADING SPA",
+                        "total_amount": 595,
+                        "vat_amount": 95,
+                        "net_amount": 500,
+                        "creation_date": "2019-12-30",
+                        "receival_date": "2020-01-02 09:32:39"
+                      }
+                    ],
+                    "events": [
+                      {
+                        "state": null,
+                        "date": null,
+                        "retrieved_date": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de facturas recibida"
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ]
+      },
+      "parameters": []
+    },
+    "/NDC/cesiones": {
+      "post": {
+        "summary": "INGRESA NUEVAS CESIONES DE DOCUMENT0S",
+        "operationId": "post-cesion",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          }
+        },
+        "description": "Carga datos de cesiones de documentos en Azure\\queue CESIONES, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "required": true,
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "examples": {
+                "Ejmplo": {
+                  "value": {
+                    "company_id": "76696741-8",
+                    "data": [
+                      {
+                        "01092019-01102019": [
+                          {
+                            "VENDEDOR": "76696741-8",
+                            "ESTADO_CESION": "Cesion Vigente",
+                            "DEUDOR": "96623540-3",
+                            "MAIL_DEUDOR": null,
+                            "TIPO_DOC": "34",
+                            "NOMBRE_DOC": "Factura Exenta Electronica",
+                            "FOLIO_DOC": "45",
+                            "FCH_EMIS_DTE": "2019-09-04",
+                            "MNT_TOTAL": "896000",
+                            "CEDENTE": "76696741-8",
+                            "RZ_CEDENTE": "Narki Spa",
+                            "MAIL_CEDENTE": "jonas@narki.cl",
+                            "CESIONARIO": "76596744-9",
+                            "RZ_CESIONARIO": "CHITA SPA.",
+                            "MAIL_CESIONARIO": "contacto@chita.cl",
+                            "FCH_CESION": "2019-09-11 18:56",
+                            "MNT_CESION": "896000",
+                            "FCH_VENCIMIENTO": "2019-10-04"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos de cesiones recibida"
+        }
+      },
+      "parameters": []
+    },
+    "/NDC/ctributarias": {
+      "post": {
+        "summary": "INGRESA NUEVAS CARPETAS TRIBUTARIAS",
+        "operationId": "post-ctributaria",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          }
+        },
+        "description": "Carga datos de la Carpeta Tributaria en Azure\\queue CARPETA, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "link": {
+                    "type": "string",
+                    "description": "Link para descarga la carpeta tributaria"
+                  },
+                  "rut": {
+                    "type": "string",
+                    "description": "Rut del Cliente"
+                  }
+                },
+                "required": [
+                  "link",
+                  "rut"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "link": "http:\\nombrecarpeta.pdf",
+                    "rut": "122436756"
+                  }
+                }
+              }
+            }
+          },
+          "description": ""
+        }
+      },
+      "parameters": []
+    },
+    "/NDC/entidades/Contactos": {
+      "post": {
+        "summary": "Ingresar Cuenta",
+        "operationId": "post-NDC-entidades-cuentas",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          },
+          "": {
+            "description": "Contacto creado con exito"
+          }
+        },
+        "description": "Carga datos de Contactos del clientes en Azure\\queue DATOSCLI, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutcli": {
+                    "type": "string",
+                    "description": "Rut del cliente empresa"
+                  },
+                  "nombre": {
+                    "type": "string",
+                    "description": "Nombre del contacto"
+                  },
+                  "cargo": {
+                    "type": "string",
+                    "description": "Cargo del Contacto"
+                  },
+                  "fono": {
+                    "type": "string",
+                    "description": "Fono del Contacto"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email del Contacto"
+                  },
+                  "area": {
+                    "type": "string",
+                    "description": "Area del Contacto"
+                  }
+                },
+                "required": [
+                  "rutcli",
+                  "nombre",
+                  "cargo",
+                  "fono",
+                  "email",
+                  "area"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutcli": "122436756",
+                    "nombre": "Juan Perez",
+                    "Cargo": "Jefe de Finanzas",
+                    "fono": "98788999",
+                    "email": "jperez@gmail.com",
+                    "Area": "Finanzas"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos requerida"
+        }
+      },
+      "parameters": []
+    },
+    "/NDC/entidades/cuenta": {
+      "post": {
+        "summary": "Ingresa Contactos",
+        "operationId": "post-NDC-entidades-contactos",
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          }
+        },
+        "description": "Carga datos de cuentas del clientes en Azure\\queue DATOSCLI, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Content-Type",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutcli": {
+                    "type": "string",
+                    "description": "Rut del cliente empresa"
+                  },
+                  "banco": {
+                    "type": "string",
+                    "description": "Banco asociado a la cuenta"
+                  },
+                  "rutcta": {
+                    "type": "string",
+                    "description": "Rut dueño de la cuenta"
+                  },
+                  "tipcta": {
+                    "type": "string",
+                    "description": "Tipo de Cuenta"
+                  },
+                  "nuncta": {
+                    "type": "string",
+                    "description": "Numero de la cuenta"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Email de contacto de la cuenta"
+                  }
+                },
+                "required": [
+                  "rutcli",
+                  "banco",
+                  "rutcta",
+                  "tipcta",
+                  "nuncta",
+                  "email"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutcli": "766967418",
+                    "banco": "CHILE",
+                    "rutcta": "122436756",
+                    "tipcta": "CORRIENTE",
+                    "numcta": "00000765",
+                    "email": "jperez@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Estructura de datos requerida"
+        }
+      },
+      "parameters": []
+    },
+    "/NDC/documentos": {
+      "post": {
+        "summary": "Ingreso de Documentos",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "Inicializacion de datos en Azure\\queue exitosa"
+          }
+        },
+        "operationId": "post-NDC-documentos",
+        "description": "Carga datos de la Carpeta Tributaria en Azure\\queue DOCUMENTOS, se debe incorporar segun API-KEY el origen de la informacion a la estructura ingresada a traves del body",
+        "security": [
+          {
+            "API Key": []
+          }
+        ],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "description": "Le indica al cliente cuál es realmente el tipo de contenido del contenido devuelto. Ej: application/json",
+            "required": true,
+            "name": "Content-Type"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "rutCli": {
+                    "type": "string",
+                    "description": "Rut del Cliente"
+                  },
+                  "tipDocumentos": {
+                    "type": "string",
+                    "description": "Tipo de documentos LEGALES / FACTORING / LEASING"
+                  },
+                  "numoperacion": {
+                    "type": "number",
+                    "description": "Numero de la operacion asociada"
+                  },
+                  "documentos": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "description": "id del documento"
+                        },
+                        "link": {
+                          "type": "string",
+                          "description": "Link de descarga del documento"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rutCli",
+                  "tipDocumentos",
+                  "numoperacion",
+                  "documentos"
+                ]
+              },
+              "examples": {
+                "Ejemplo": {
+                  "value": {
+                    "rutCli": "19",
+                    "tipDocumentos": "LEGALES",
+                    "numoperacion": 12,
+                    "documentos": [
+                      {
+                        "id": 1,
+                        "link": "www.octa.cl\\documentos\\1.pdf"
+                      },
+                      {
+                        "id": 2,
+                        "link": "www.octa.cl\\documentos\\2.pdf"
+                      },
+                      {
+                        "id": 3,
+                        "link": "www.octa.cl\\documentos\\3.pdf"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "API Key": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "header",
+        "description": "Clave para identificacion y autorizacion para uso del servicios"
+      }
+    }
+  }
+}
